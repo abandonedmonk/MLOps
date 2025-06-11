@@ -29,18 +29,22 @@ def load_pickle(filename: str):
     help="The number of parameter evaluations for the optimizer to explore"
 )
 def run_optimization(data_path: str, num_trials: int):
-
     X_train, y_train = load_pickle(os.path.join(data_path, "train.pkl"))
     X_val, y_val = load_pickle(os.path.join(data_path, "val.pkl"))
 
     def objective(params):
+        with mlflow.start_run():
+            mlflow.log_params(params)
 
-        rf = RandomForestRegressor(**params)
-        rf.fit(X_train, y_train)
-        y_pred = rf.predict(X_val)
-        rmse = root_mean_squared_error(y_val, y_pred)
+            rf = RandomForestRegressor(**params)
+            rf.fit(X_train, y_train)
 
-        return {'loss': rmse, 'status': STATUS_OK}
+            y_pred = rf.predict(X_val)
+            rmse = root_mean_squared_error(y_val, y_pred)
+
+            mlflow.log_metric("RMSE", rmse)
+
+            return {'loss': rmse, 'status': STATUS_OK}
 
     search_space = {
         'max_depth': scope.int(hp.quniform('max_depth', 1, 20, 1)),
