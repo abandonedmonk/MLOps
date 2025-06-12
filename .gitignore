@@ -196,7 +196,7 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 mlflow.db
-mlruns/
+mlruns*
 test*
 mlops_pipline
 mage_data/
