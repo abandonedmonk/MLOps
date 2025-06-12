@@ -15,5 +15,5 @@ def transform_data(df):
 
 
 if __name__ == "__main__":
-    df = pd.read_parquet("Orchestration/yellow_tripdata_2023-03.parquet")
+    df = pd.read_parquet("yellow_tripdata_2023-03.parquet")
     df_transformed = transform_data(df)
