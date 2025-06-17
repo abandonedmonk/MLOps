@@ -200,3 +200,4 @@ mlruns*
 test*
 mlops_pipline
 mage_data/
+*.backup
