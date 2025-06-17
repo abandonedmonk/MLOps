@@ -1,7 +1,9 @@
 import pickle
+from sklearn.feature_extraction import DictVectorizer
 
 
-with open("Deployment\web-service\model.pkl", 'rb') as f:
+# dv = DictVectorizer()
+with open("ridge_reg.bin", 'rb') as f:
     dv, model = pickle.load(f)
 
 
@@ -15,6 +17,6 @@ def prepare_features(ride):
 
 # Function to predict the fare
 def predict(features):
-    X = dv.trasnform(features)
+    X = dv.transform(features)
     y_pred = model.predict(X)
-    return y_pred
+    return y_pred[0]
