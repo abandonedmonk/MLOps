@@ -202,3 +202,5 @@ mlops_pipline
 mage_data/
 *.backup
 *.bat
+predictions_2023_04.parquet
+predictions_2023_03.parquet
