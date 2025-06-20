@@ -71,7 +71,7 @@ Run batch predictions for homework questions.
 - **March 2023 (Q1: Standard deviation, Q2: File size)**:
 
   ```bash
-  python predict.py --year 2023 --month 3 --output-path predictions_2023_03.parquet
+  python predict.py --year 2023 --month 3 --experiment-name yellow-taxi-linear-regression --output-path predictions_2023_03.parquet
   ```
 
   - Check file size for Q2:
@@ -82,7 +82,7 @@ Run batch predictions for homework questions.
 - **April 2023 (Q5: Mean predicted duration)**:
 
   ```bash
-  python predict.py --year 2023 --month 4 --output-path predictions_2023_04.parquet
+  python predict.py --year 2023 --month 4 --experiment-name yellow-taxi-linear-regression --output-path predictions_2023_04.parquet
   ```
 
 - **May 2023 (Q6: Mean predicted duration, Docker)**:
@@ -92,7 +92,7 @@ Run batch predictions for homework questions.
     ```
   - Run container:
     ```bash
-    docker run --rm mlops-homework --year 2023 --month 5 --output-path predictions_2023_05.parquet
+    docker run --rm mlops-homework --year 2023 --month 5 --model-path /app/model.bin --output-path predictions_2023_05.parquet
     ```
 
 ### 3. Host Web Service
