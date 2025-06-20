@@ -3,6 +3,7 @@
 This project implements a pipeline for predicting ride durations using the NYC Yellow Taxi Trip Records dataset. It includes data loading, transformation, model training, registration with MLflow, batch predictions, and hosting a web service locally using Flask. Below are the instructions to run the pipeline locally.
 
 ## Prerequisites
+
 - Python 3.10
 - Docker
 - `pipenv` for virtual environment management
@@ -10,33 +11,31 @@ This project implements a pipeline for predicting ride durations using the NYC Y
 
 ## Setup
 
-1. **Clone the repository or create project directory**:
-   ```bash
-   mkdir mlops-homework
-   cd mlops-homework
-   ```
+1. **Install `pipenv`**:
 
-2. **Install `pipenv`**:
    ```bash
    pip install pipenv
    ```
 
-3. **Create virtual environment and install dependencies**:
+2. **Create virtual environment and install dependencies**:
+
    ```bash
    pipenv install pandas pyarrow scikit-learn==1.5.0 mlflow flask
    ```
 
-4. **Activate virtual environment**:
+3. **Activate virtual environment**:
+
    ```bash
    pipenv shell
    ```
 
-5. **Start MLflow server** (in a separate terminal):
+4. **Start MLflow server** (in a separate terminal):
    ```bash
-   mlflow server --host 127.0.0.1 --port 5000
+   mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns --host 127.0.0.1 --port 5000
    ```
 
 ## Project Structure
+
 ```
 mlops-homework/
 ├── load_data.py
@@ -57,6 +56,7 @@ mlops-homework/
 ## Running the Pipeline
 
 ### 1. Train and Register Model
+
 Train a model on March 2023 data and register it with MLflow.
 
 ```bash
@@ -65,18 +65,22 @@ python register_model.py --year 2023 --month 3
 ```
 
 ### 2. Batch Predictions
+
 Run batch predictions for homework questions.
 
 - **March 2023 (Q1: Standard deviation, Q2: File size)**:
+
   ```bash
   python predict.py --year 2023 --month 3 --output-path predictions_2023_03.parquet
   ```
+
   - Check file size for Q2:
     ```bash
     ls -lh predictions_2023_03.parquet
     ```
 
 - **April 2023 (Q5: Mean predicted duration)**:
+
   ```bash
   python predict.py --year 2023 --month 4 --output-path predictions_2023_04.parquet
   ```
@@ -92,6 +96,7 @@ Run batch predictions for homework questions.
     ```
 
 ### 3. Host Web Service
+
 Run the Flask app to serve predictions locally.
 
 ```bash
@@ -99,11 +104,13 @@ python app.py
 ```
 
 Test the endpoint:
+
 ```bash
 curl -X POST http://localhost:5000/predict -H "Content-Type: application/json" -d '{"PULocationID": "161", "DOLocationID": "236", "trip_distance": 2.5}'
 ```
 
 ### 4. Convert Notebook to Script (Q3)
+
 Convert `starter.ipynb` to a script (if applicable):
 
 ```bash
@@ -111,6 +118,7 @@ jupyter nbconvert --to script starter.ipynb
 ```
 
 ## Homework Answers
+
 - **Q1**: Standard deviation for March 2023 ≈ 6.24
 - **Q2**: Size of `predictions_2023_03.parquet` ≈ 66M
 - **Q3**: `jupyter nbconvert --to script starter.ipynb`
@@ -122,6 +130,7 @@ jupyter nbconvert --to script starter.ipynb
 - **Q6**: Mean predicted duration for May 2023 ≈ 14.24
 
 ## Troubleshooting
+
 - **MLflow**: Ensure server is running at `http://127.0.0.1:5000`.
 - **Docker**: Verify Docker is installed and base image is accessible.
 - **Data**: If URLs fail, download parquet files from `https://d37ci6vzurychx.cloudfront.net/trip-data/`.
