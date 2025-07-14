@@ -205,3 +205,4 @@ mage_data/
 *.bat
 predictions_2023_04.parquet
 predictions_2023_03.parquet
+taxi_monitoring_workspace
